@@ -1,58 +1,16 @@
 // Chặn chuột phải
 document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
-    alert('Not Found');
+    alert('có cái đầu buồi');
 });
 
-// Chặn phím tắt DevTools
+// Chặn F12 và một số phím tắt DevTools
 document.addEventListener('keydown', (e) => {
-    if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) ||
-        (e.ctrlKey && e.key === 'U')
-    ) {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J'))) {
         e.preventDefault();
-        alert('Not Found');
+        alert('có cái đầu buồi');
     }
 });
-
-// Phát hiện DevTools mở
-(function detectDevTools() {
-    const threshold = 160; // Ngưỡng kích thước để phát hiện DevTools
-    let isDevToolsOpen = false;
-
-    function checkDevTools() {
-        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-        if (widthThreshold || heightThreshold) {
-            if (!isDevToolsOpen) {
-                isDevToolsOpen = true;
-                alert('Not Found');
-                // Tùy chọn: Vô hiệu hóa trang hoặc chuyển hướng
-                // document.body.innerHTML = '<h1>DevTools detected! Access restricted.</h1>';
-                // window.location.href = 'about:blank';
-            }
-        } else {
-            isDevToolsOpen = false;
-        }
-    }
-
-    // Kiểm tra định kỳ
-    setInterval(checkDevTools, 1000);
-
-    // Phát hiện qua thời gian xử lý (DevTools làm chậm vòng lặp)
-    let devtoolsCheck = { time: Date.now() };
-    (function loop() {
-        let now = Date.now();
-        if (now - devtoolsCheck.time > 100) {
-            alert('DevTools detected via debugger! Please close it.');
-            // Tùy chọn: Vô hiệu hóa trang
-            // document.body.innerHTML = '<h1>Debugger detected! Access restricted.</h1>';
-        }
-        devtoolsCheck.time = now;
-        setTimeout(loop, 0);
-    })();
-})();
 
 // Xử lý autoplay nhạc sau 1 giây
 const audio = document.getElementById('background-music');
